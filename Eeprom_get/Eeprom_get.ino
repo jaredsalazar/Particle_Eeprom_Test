@@ -19,23 +19,22 @@ void setup() {
   }
 
   // Read an object from the EEPROM addres
-  addr = 20;
   struct MyObject {
-    uint8_t version;
-    float field1;
-    uint16_t field2;
-    char name[10];
+    bool stat;
+    bool bat;
+    char msg[20];
   };
-  MyObject myObj;
-  EEPROM.get(addr, myObj);
-  if(myObj.version != 0) {
-    // EEPROM was empty -> initialize myObj
-    MyObject defaultObj = { 0, 12.34f, 25, "Test!!" };
-    myObj = defaultObj;
-  }
-
+  MyObject myObj1;
+  addr = 20;
+  EEPROM.get(addr, myObj1);
   Serial.println("value: " + String(value));
-  Serial.println("version: " + String(myObj.version) + " field1: " + String(myObj.field1) + " field2: " + String(myObj.field2) + " name: " + String(myObj.name));
+  Serial.println("stat: "+ String(myObj1.stat) + " name: " + String(myObj1.msg));
+
+  MyObject myObj2;
+  addr = 40;
+  EEPROM.get(addr, myObj2);
+  Serial.println("value: " + String(value));
+  Serial.println("stat: "+ String(myObj2.stat) + " name: " + String(myObj2.msg));
 }
 
 void loop() {

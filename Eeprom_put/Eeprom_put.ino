@@ -14,15 +14,22 @@ void setup() {
   EEPROM.put(addr, value);
 
   // Write an object to the EEPROM address
-  addr = 20;
   struct MyObject {
-    uint8_t version;
-    float field1;
-    uint16_t field2;
-    char name[10];
-  };
-  MyObject myObj = { 0, 12.34f, 25, "Test!" };
-  EEPROM.put(addr, myObj);
+      bool stat;
+      bool bat;
+      char msg[20];
+    };
+
+  addr = 20;
+  MyObject myObj1 = { 0,0,"AAAAA11111222223333" };
+  EEPROM.put(addr, myObj1);
+  Serial.println("Success. Size: " + String(sizeof(myObj1)));
+
+  addr = 40;
+  MyObject myObj2 = { 1,1,"AAAAA77777888889999" };
+  EEPROM.put(addr, myObj2);
+  Serial.println("Success. Size: " + String(sizeof(myObj2)));
+
 }
 
 void loop() {
