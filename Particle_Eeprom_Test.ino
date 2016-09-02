@@ -1,28 +1,23 @@
-#include <application.h>
+#include "application.h"
 
-String readString;
+String fromSerialString;
+uint16_t fromEEPROMString;
+long EEPROMAddress;
 
-void setup(){
+void setup() {
   Serial.begin(9600);
-}
 
-void loop(){
   //Waiting for user input on serial
   Serial.println("Type any character to start");
   while (Serial.available() <= 0) {
-    delay(10);
+    delay(1000);
   }
 
-  //Get String from serial
-  while (Serial.available()) {
-  delay(3);  //delay to allow buffer to fill
-  if (Serial.available() > 0) {
-    char c = Serial.read();  //gets one byte from serial buffer
-    readString += c; //makes the string readString
-  }
+  //Get lenght of EEPROM and print it.
+  size_t length = EEPROM.length();
+  Serial.println("length: " + String(length));
 }
 
-size_t length = EEPROM.length();
+void loop() {
 
-Serial.println("length: " + String(length));
 }
