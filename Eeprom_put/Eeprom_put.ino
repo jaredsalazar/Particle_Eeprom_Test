@@ -8,18 +8,18 @@ void setup() {
   while (Serial.available() <= 0) {
     delay(1000);
   }
-
-  //Get lenght of EEPROM and print it.
-  size_t length = EEPROM.length();
-  Serial.println("length: " + String(length));
+  // Write a value (2 bytes in this case) to the EEPROM address
+  int addr = 10;
+  uint16_t value = 12345;
+  EEPROM.put(addr, value);
 
   // Write an object to the EEPROM address
-  int addr = 20;
+  addr = 20;
   struct MyObject {
     uint8_t version;
     float field1;
     uint16_t field2;
-    String name;
+    char name[10];
   };
   MyObject myObj = { 0, 12.34f, 25, "Test!" };
   EEPROM.put(addr, myObj);
